@@ -20,6 +20,8 @@ import AddBatch from "./pages/admin/AddBatch";
 import BatchDetails from "./pages/computerProgrammer/BatchDetails";
 import TimtableReport from "./pages/computerProgrammer/TimetableReport";
 import Organization from "./components/MasterComponents/organization/Organization";
+import JobType from "./components/MasterComponents/jobtype/JobType";
+import Ranks from "./components/MasterComponents/ranks/Ranks";
 
 
 const App = () => {
@@ -65,10 +67,12 @@ const App = () => {
         <Route path="/BatchDetails" element={<BatchDetails />} />
         <Route path="/TimtableReport" element={<TimtableReport />} />
         <Route path="/masterorganization" element={<Organization/>} />
+        <Route path="/masterjobtype"  element={<JobType/>} />
+        <Route path="/masterrank" element={<Ranks/>} />
       </Routes>
 
     </BrowserRouter>
   );
-}
+} 
 
 export default App;
