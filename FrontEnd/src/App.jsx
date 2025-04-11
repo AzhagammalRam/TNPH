@@ -19,6 +19,7 @@ import DsrReport from "./pages/computerProgrammer/DsrReport";
 import AddBatch from "./pages/admin/AddBatch";
 import BatchDetails from "./pages/computerProgrammer/BatchDetails";
 import TimtableReport from "./pages/computerProgrammer/TimetableReport";
+import Organization from "./components/MasterComponents/organization/Organization";
 
 
 const App = () => {
@@ -63,6 +64,7 @@ const App = () => {
         <Route path="/AddBatch" element={<AddBatch />} />
         <Route path="/BatchDetails" element={<BatchDetails />} />
         <Route path="/TimtableReport" element={<TimtableReport />} />
+        <Route path="/masterorganization" element={<Organization/>} />
       </Routes>
 
     </BrowserRouter>
