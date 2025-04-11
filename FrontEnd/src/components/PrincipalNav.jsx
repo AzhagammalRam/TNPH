@@ -101,7 +101,7 @@ function PricipalNav({username,position,activeDashboard,activeProfile,activeTime
                   <h6 className="fw-normal mb-0">Events & Ceremonies</h6>
                 </Link>
                 <hr className="dropdown-divider" />
-                <Link className="dropdown-item">
+                <Link to="/TimtableReport" className="dropdown-item">
                   <h6 className="fw-normal mb-0">Timetable</h6>
                 </Link>
               </div>

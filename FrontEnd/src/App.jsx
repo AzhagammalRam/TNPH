@@ -18,6 +18,7 @@ import StrengthReport from "./pages/computerProgrammer/StrengthReport";
 import DsrReport from "./pages/computerProgrammer/DsrReport";
 import AddBatch from "./pages/admin/AddBatch";
 import BatchDetails from "./pages/computerProgrammer/BatchDetails";
+import TimtableReport from "./pages/computerProgrammer/TimetableReport";
 
 
 const App = () => {
@@ -61,6 +62,7 @@ const App = () => {
         <Route path="/DsrReport" element={<DsrReport />} />
         <Route path="/AddBatch" element={<AddBatch />} />
         <Route path="/BatchDetails" element={<BatchDetails />} />
+        <Route path="/TimtableReport" element={<TimtableReport />} />
       </Routes>
 
     </BrowserRouter>

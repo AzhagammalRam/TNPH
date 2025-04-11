@@ -4,9 +4,20 @@ import MinisterialStrengthReport from '../../components/FormComponents/Ministeri
 import ExecutiveStrengthReport from '../../components/FormComponents/ExecutiveStrengthReport';
 import RpcStrengthReport from '../../components/FormComponents/RpcStrengthReport';
 import { Button } from 'react-bootstrap';
+import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
 
 const StrengthReport = () => {
   const userRole = sessionStorage.getItem("role");
+
+  const optionsArray = [
+    { key: "pts", label: "PTS" },
+    { key: "istc", label: "ISTC" },
+    { key: "tnph", label: "TNPH" },
+  ];
+
+  const changeMarket = (selected) => {
+    console.log(selected);
+  };
 
   const PageContent = (
     <main className="pt-3">
@@ -18,15 +29,26 @@ const StrengthReport = () => {
         </div>
         <div className="card p-3">
           <div className="col-xl-12 row bg-white p-3">
-            <div className='col-md-4 row'>
+            <div className='col-md-3 row'>
               <div className='col-md-4'><h6 className='title-clr p-2'>From</h6></div>
               <div className='col-md-8'><input type='date' className="form-control" name="fromDate" /></div>
             </div>
-            <div className='col-md-4 row'>
-              <div className='col-md-3'><h6 className='title-clr p-2'>To</h6></div>
+            <div className='col-md-3 row'>
+              <div className='col-md-4'><h6 className='title-clr p-2'>To</h6></div>
               <div className='col-md-8'><input type='date' className="form-control" name="toDate" /></div>
             </div>
-            <div className='col-md-3 row'>
+            <div className='col-md-5 row'>
+              <div className='col-md-4'><h6 className='title-clr p-2'>Organization</h6></div>
+              <div className='col-md-7'>
+              <DropdownMultiselect className="form-control"
+                options={optionsArray}
+                name="org"
+                handleOnChange={(selected) => changeMarket(selected)}
+                // selectDeselectLabel={"All"}
+              />
+              </div>
+            </div>
+            <div className='col-md-2 row'>
               <Button><i class="fa fa-search" aria-hidden="true"></i>&nbsp;&nbsp;
               Search</Button>
             </div>

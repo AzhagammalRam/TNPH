@@ -6,6 +6,7 @@ import DashboardGrid from '../../components/FormComponents/DashboardGrid';
 import DashboardISTCCard from '../../components/FormComponents/DashboardISTCCard';
 import DashboardPTSCard from '../../components/FormComponents/DashboardPTSCard';
 import DashboardEvents from '../../components/FormComponents/DashboardEvents';
+import DashboardSPChart from '../../components/FormComponents/DashboardSPChart';
 
 const IndexSP = () => {
   sessionStorage.setItem("role", "SP");
@@ -21,20 +22,36 @@ const IndexSP = () => {
                 </div>
                 </div>
                 <div className='row container'>
-                  <div className='col-md-8'><DashboardPTSCard /><br></br><DashboardISTCCard /></div>
-                  <div className='col-md-4'><DashboardEvents />
-                  <hr></hr>
+                  <div className='col-md-8'><DashboardPTSCard /><br></br><hr></hr><br></br><DashboardISTCCard /></div>
+                  <div className='col-md-4'>
                   <div className='card'>
-
-                    <div className='bg-white p-2 mb-2'>
-                      <h6 className='txtred mt-2'>Leave</h6>
+                    <div className='bg-white p-2 '>
+                      <h6 className='txtred mt-2'>Batch Details</h6>
                       <div className='col-md-12 row'>
-                        <span ><i className="fa fa-arrow-right me-lg-2"></i><b>Ministerial : 2</b></span>
-                        <span ><i className="fa fa-arrow-right me-lg-2"></i><b>Executive : 4</b></span>
-                        <span ><i className="fa fa-arrow-right me-lg-2"></i><b>RPC : 7</b></span>
+                        <div className='col-md-8'>
+                          <p><b>From: </b>Dec -2024</p>
+                          <p><b>To: </b>July -2025</p>
+                        </div>
+                        <div className='col-md-4'>
+                          <a href='#'>View Details</a>
+                        </div>
+                      </div>
+                      <div className='col-md-12 row'>
                       </div>
                     </div>
                   </div>
+                  <hr></hr>
+                    <DashboardEvents />
+                  <hr></hr>
+                  <div className='card'>
+                    <div className='bg-white p-2 mb-2'>
+                      <h6 className='txtred mt-2'>Leave</h6>
+                      <div className='col-md-12 row'>
+                        <DashboardSPChart />
+                      </div>
+                    </div>
+                  </div>
+
                   </div>
                 </div>
                 <br></br>
