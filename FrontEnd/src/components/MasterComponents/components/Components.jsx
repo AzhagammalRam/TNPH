@@ -1,88 +1,89 @@
 import React, { useState } from 'react';
-import '../organization/organization.css';
 import { Table } from 'react-bootstrap';
 import SPNav from '../../SPNav';
 
 
-function JobType() {
-  const [jobtype, setJobtype] = useState('');
-  const [jobtypes, setJobtypes] = useState([]);
+function Components() {
+  const [component, setComponent] = useState('');
+  const [components, setComponents] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
   const [editName, setEditName] = useState('');
 
   const handleSave = () => {
-    if (!jobtype.trim()) return alert('Please enter an Job Type');
-    const newEntry = { name: jobtype };
-    setJobtypes([...jobtypes, newEntry]);
-    setJobtype('');
+    if (!component.trim()) return alert('Please enter a Component');
+    const newEntry = { name: component };
+    setComponents([...components, newEntry]);
+    setComponent('');
   };
 
   const handleEdit = (index) => {
     setEditIndex(index);
-    setEditName(jobtypes[index].name);
+    setEditName(components[index].name);
   };
 
   const handleUpdate = (index) => {
-    const updatedList = [...jobtypes];
+    const updatedList = [...components];
     updatedList[index].name = editName;
-    setJobtypes(updatedList);
+    setComponents(updatedList);
     setEditIndex(null);
     setEditName('');
   };
 
   const handleDelete = (index) => {
-    const updatedList = jobtypes.filter((_, i) => i !== index);
-    setJobtypes(updatedList);
+    const updatedList = components.filter((_, i) => i !== index);
+    setComponents(updatedList);
   };
 
   return (
-   <SPNav>
+    <SPNav>
     <div className='master-organization'>
-      <h4 className='title-clr'>Job Type</h4>
+      <h4 className='title-clr'>Components</h4>
       <div className="master-organization-form p-3 mb-3">
         <div className='col-md-6 row align-items-center'>
           <div className='col-md-4 text-center'>
-            <h6 className='title-clr p-2'>Job Type  :</h6>
+            <h6 className='title-clr p-2'>Component :</h6>
           </div>
-          <div className='col-md-8'>
+          <div className='col-md-5'>
             <input
-              type='text'
-              name="jobtype"
-              value={jobtype}
-              onChange={(e) => setJobtype(e.target.value)}
-              
+              type="text"
+              name="component"
+              value={component}
+              onChange={(e) => setComponent(e.target.value)}
+              className='form-control'
+              placeholder="Enter component name"
             />
           </div>
         </div>
         <div className='col-md-12 row mt-3'>
-          <div className='col-md-12 text-center'>
+          <div className='col-md-11 text-center'>
             <button className='btn btn-primary' onClick={handleSave}>Save</button>
           </div>
         </div>
       </div>
 
       <div className="master-organization-table p-3 mb-3">
-        <Table   bordered id="strength" className='smtbl responsive w-75'>
+        <Table bordered id="strength" className='smtbl responsive w-75'>
           <thead>
             <tr className='text-center'>
               <th>Sl.No</th>
-              <th >Job Type</th>
+              <th>Component</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {jobtypes.map((org, index) => (
+            {components.map((item, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>
                   {editIndex === index ? (
                     <input
+                      type="text"
                       value={editName}
                       onChange={(e) => setEditName(e.target.value)}
-                      className='w-25'
+                      className='form-control w-75'
                     />
                   ) : (
-                    org.name
+                    item.name
                   )}
                 </td>
                 <td className='text-center'>
@@ -95,18 +96,17 @@ function JobType() {
                 </td>
               </tr>
             ))}
-            {jobtypes.length === 0 && (
+            {components.length === 0 && (
               <tr>
-                <td colSpan="3" className="text-center">No jobtypes added yet.</td>
+                <td colSpan="3" className="text-center">No Components added yet.</td>
               </tr>
             )}
           </tbody>
         </Table>
       </div>
     </div>
-    </SPNav>  
+    </SPNav>
   );
 }
 
-export default JobType;
-
+export default Components;

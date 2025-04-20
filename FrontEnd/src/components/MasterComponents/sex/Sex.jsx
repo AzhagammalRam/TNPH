@@ -1,88 +1,88 @@
 import React, { useState } from 'react';
-import '../organization/organization.css';
 import { Table } from 'react-bootstrap';
 import SPNav from '../../SPNav';
 
-
-function JobType() {
-  const [jobtype, setJobtype] = useState('');
-  const [jobtypes, setJobtypes] = useState([]);
+function Sex() {
+  const [sexName, setSexName] = useState('');
+  const [sexes, setSexes] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
   const [editName, setEditName] = useState('');
 
   const handleSave = () => {
-    if (!jobtype.trim()) return alert('Please enter an Job Type');
-    const newEntry = { name: jobtype };
-    setJobtypes([...jobtypes, newEntry]);
-    setJobtype('');
+    if (!sexName.trim()) return alert('Please enter a sex option');
+    const newEntry = { name: sexName };
+    setSexes([...sexes, newEntry]);
+    setSexName('');
   };
 
   const handleEdit = (index) => {
     setEditIndex(index);
-    setEditName(jobtypes[index].name);
+    setEditName(sexes[index].name);
   };
 
   const handleUpdate = (index) => {
-    const updatedList = [...jobtypes];
+    const updatedList = [...sexes];
     updatedList[index].name = editName;
-    setJobtypes(updatedList);
+    setSexes(updatedList);
     setEditIndex(null);
     setEditName('');
   };
 
   const handleDelete = (index) => {
-    const updatedList = jobtypes.filter((_, i) => i !== index);
-    setJobtypes(updatedList);
+    const updatedList = sexes.filter((_, i) => i !== index);
+    setSexes(updatedList);
   };
 
   return (
-   <SPNav>
+    <SPNav>
     <div className='master-organization'>
-      <h4 className='title-clr'>Job Type</h4>
+      <h4 className='title-clr'>Sex</h4>
       <div className="master-organization-form p-3 mb-3">
         <div className='col-md-6 row align-items-center'>
           <div className='col-md-4 text-center'>
-            <h6 className='title-clr p-2'>Job Type  :</h6>
+            <h6 className='title-clr p-2'>Sex :</h6>
           </div>
-          <div className='col-md-8'>
+          <div className='col-md-5'>
             <input
-              type='text'
-              name="jobtype"
-              value={jobtype}
-              onChange={(e) => setJobtype(e.target.value)}
-              
+              type="text"
+              name="sexName"
+              value={sexName}
+              onChange={(e) => setSexName(e.target.value)}
+              className='form-control'
+              placeholder="Enter sex (e.g. Male, Female)"
             />
           </div>
         </div>
         <div className='col-md-12 row mt-3'>
-          <div className='col-md-12 text-center'>
+          <div className='col-md-11 text-center'>
             <button className='btn btn-primary' onClick={handleSave}>Save</button>
           </div>
         </div>
       </div>
 
       <div className="master-organization-table p-3 mb-3">
-        <Table   bordered id="strength" className='smtbl responsive w-75'>
+        <Table bordered id="strength" className='smtbl responsive w-75'>
           <thead>
             <tr className='text-center'>
               <th>Sl.No</th>
-              <th >Job Type</th>
+              <th>Sex</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {jobtypes.map((org, index) => (
+            {sexes.map((sex, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>
                   {editIndex === index ? (
                     <input
+                      type="text"
                       value={editName}
                       onChange={(e) => setEditName(e.target.value)}
-                      className='w-25'
+                      className='form-control w-50'
                     />
                   ) : (
-                    org.name
+                    sex.name
                   )}
                 </td>
                 <td className='text-center'>
@@ -95,18 +95,17 @@ function JobType() {
                 </td>
               </tr>
             ))}
-            {jobtypes.length === 0 && (
+            {sexes.length === 0 && (
               <tr>
-                <td colSpan="3" className="text-center">No jobtypes added yet.</td>
+                <td colSpan="3" className="text-center">No Sex added yet.</td>
               </tr>
             )}
           </tbody>
         </Table>
       </div>
     </div>
-    </SPNav>  
+    </SPNav>
   );
 }
 
-export default JobType;
-
+export default Sex;

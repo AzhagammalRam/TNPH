@@ -1,88 +1,88 @@
 import React, { useState } from 'react';
-import '../organization/organization.css';
 import { Table } from 'react-bootstrap';
 import SPNav from '../../SPNav';
 
-
-function JobType() {
-  const [jobtype, setJobtype] = useState('');
-  const [jobtypes, setJobtypes] = useState([]);
+function TrainingType() {
+  const [trainingtype, setTrainingtype] = useState('');
+  const [trainingTypes, setTrainingTypes] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
   const [editName, setEditName] = useState('');
 
   const handleSave = () => {
-    if (!jobtype.trim()) return alert('Please enter an Job Type');
-    const newEntry = { name: jobtype };
-    setJobtypes([...jobtypes, newEntry]);
-    setJobtype('');
+    if (!trainingtype.trim()) return alert('Please enter a training type');
+    const newEntry = { name: trainingtype };
+    setTrainingTypes([...trainingTypes, newEntry]);
+    setTrainingtype('');
   };
 
   const handleEdit = (index) => {
     setEditIndex(index);
-    setEditName(jobtypes[index].name);
+    setEditName(trainingTypes[index].name);
   };
 
   const handleUpdate = (index) => {
-    const updatedList = [...jobtypes];
+    const updatedList = [...trainingTypes];
     updatedList[index].name = editName;
-    setJobtypes(updatedList);
+    setTrainingTypes(updatedList);
     setEditIndex(null);
     setEditName('');
   };
 
   const handleDelete = (index) => {
-    const updatedList = jobtypes.filter((_, i) => i !== index);
-    setJobtypes(updatedList);
+    const updatedList = trainingTypes.filter((_, i) => i !== index);
+    setTrainingTypes(updatedList);
   };
 
   return (
-   <SPNav>
+    <SPNav>
     <div className='master-organization'>
-      <h4 className='title-clr'>Job Type</h4>
+      <h4 className='title-clr'>Training Type</h4>
       <div className="master-organization-form p-3 mb-3">
         <div className='col-md-6 row align-items-center'>
           <div className='col-md-4 text-center'>
-            <h6 className='title-clr p-2'>Job Type  :</h6>
+            <h6 className='title-clr p-2'>Training type :</h6>
           </div>
-          <div className='col-md-8'>
+          <div className='col-md-5'>
             <input
-              type='text'
-              name="jobtype"
-              value={jobtype}
-              onChange={(e) => setJobtype(e.target.value)}
-              
+              type="text"
+              name="trainingtype"
+              value={trainingtype}
+              onChange={(e) => setTrainingtype(e.target.value)}
+              className='form-control'
+              placeholder="Enter Training Type"
             />
           </div>
         </div>
         <div className='col-md-12 row mt-3'>
-          <div className='col-md-12 text-center'>
+          <div className='col-md-11 text-center'>
             <button className='btn btn-primary' onClick={handleSave}>Save</button>
           </div>
         </div>
       </div>
 
       <div className="master-organization-table p-3 mb-3">
-        <Table   bordered id="strength" className='smtbl responsive w-75'>
+        <Table bordered id="strength" className='smtbl responsive w-75'>
           <thead>
             <tr className='text-center'>
               <th>Sl.No</th>
-              <th >Job Type</th>
+              <th>Training Type</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {jobtypes.map((org, index) => (
+            {trainingTypes.map((type, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>
                   {editIndex === index ? (
                     <input
+                      type="text"
                       value={editName}
                       onChange={(e) => setEditName(e.target.value)}
-                      className='w-25'
+                      className='form-control w-50'
                     />
                   ) : (
-                    org.name
+                    type.name
                   )}
                 </td>
                 <td className='text-center'>
@@ -95,18 +95,17 @@ function JobType() {
                 </td>
               </tr>
             ))}
-            {jobtypes.length === 0 && (
+            {trainingTypes.length === 0 && (
               <tr>
-                <td colSpan="3" className="text-center">No jobtypes added yet.</td>
+                <td colSpan="3" className="text-center">No Training Type added yet.</td>
               </tr>
             )}
           </tbody>
         </Table>
       </div>
     </div>
-    </SPNav>  
+    </SPNav>
   );
 }
 
-export default JobType;
-
+export default TrainingType;

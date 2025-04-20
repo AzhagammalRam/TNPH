@@ -22,12 +22,18 @@ import TimtableReport from "./pages/computerProgrammer/TimetableReport";
 import Organization from "./components/MasterComponents/organization/Organization";
 import JobType from "./components/MasterComponents/jobtype/JobType";
 import Ranks from "./components/MasterComponents/ranks/Ranks";
+import Sex from "./components/MasterComponents/sex/Sex";
+import TrainingType from "./components/MasterComponents/trainingType/TrainingType";
+import Components from "./components/MasterComponents/components/Components";
+import Locations from "./components/MasterComponents/locations/Locations";
+import Roles from "./components/roles/Roles";
+import Venue from "./components/MasterComponents/Venue/Venue";
 
 
 const App = () => {
 
   return (
-    <BrowserRouter basename='/'>
+    <BrowserRouter basename='/TNPHDSR'>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/add-session" element={<AddSession />} />
@@ -49,7 +55,6 @@ const App = () => {
         <Route path="/profile-student" element={<ProfileStudent />} />
         <Route path="/register-student" element={<RegisterStudent />} />
         <Route path="/week-classes" element={<WeekClasses />} />
-
         <Route path="/index-computerProgrammer" element={<IndexComputerProgrammer />} />
         <Route path="/DsrTrainingForm" element={<DsrTrainingForm />} />
         <Route path="/EventsAndCeremonies" element={<EventsAndCeremonies />} />
@@ -67,8 +72,14 @@ const App = () => {
         <Route path="/BatchDetails" element={<BatchDetails />} />
         <Route path="/TimtableReport" element={<TimtableReport />} />
         <Route path="/masterorganization" element={<Organization/>} />
+        <Route path="/masterlocation" element={<Locations/>} />
         <Route path="/masterjobtype"  element={<JobType/>} />
         <Route path="/masterrank" element={<Ranks/>} />
+        <Route path="/masterroles" element={<Roles/>} />
+        <Route path="/mastergender" element={<Sex/>} />
+        <Route path="/mastertrainingtype" element={<TrainingType/>} />
+        <Route path="/mastercomponents" element={<Components/>} />
+        <Route path="/mastervenue" element={<Venue/>} />
       </Routes>
 
     </BrowserRouter>
