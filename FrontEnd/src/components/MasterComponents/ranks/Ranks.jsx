@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../organization/organization.css';
 import { Table } from 'react-bootstrap';
-import SPNav from '../../SPNav';
+import ComputerProgrammerNav from '../../ComputerProgrammerNav';
 
 function Ranks() {
   const [rank, setRank] = useState('');
@@ -35,7 +35,7 @@ function Ranks() {
   };
 
   return (
-    <SPNav>
+    <ComputerProgrammerNav>
     <div className='master-organization'>
       <h4 className='title-clr'>Ranks</h4>
       <div className="master-organization-form p-3 mb-3">
@@ -103,7 +103,7 @@ function Ranks() {
         </Table>
       </div>
     </div>
-    </SPNav>
+    </ComputerProgrammerNav>
   );
 }
 

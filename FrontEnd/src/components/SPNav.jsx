@@ -108,45 +108,7 @@ function SPNav({username,position,activeDashboard,activeProfile,activeTimetable,
                   <h6 className="fw-normal mb-0">Timetable</h6>
                 </Link> */}
               </div>
-              <Link className="nav-link dropdown-toggle dropdown" data-bs-toggle="dropdown">
-                <i className="fa fa-flag me-lg-2"></i>
-                <span className="d-none d-lg-inline-flex">Masters</span>
-            </Link>
-              <div className="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                <Link to="/masterorganization" className="dropdown-item">
-                  <h6 className="fw-normal mb-0">Organization</h6>
-                </Link>
-                <hr className="dropdown-divider" />
-                <Link to="/masterlocation" className="dropdown-item">
-                  <h6  className="fw-normal mb-0">Locations</h6>
-                </Link>
-                <hr className="dropdown-divider" />
-                <Link to="/masterjobtype" className="dropdown-item">
-                  <h6 className="fw-normal mb-0">Job Type</h6>
-                </Link>
-                <hr className="dropdown-divider" />
-                <Link to="/masterrank" className="dropdown-item">
-                  <h6 className="fw-normal mb-0">Ranks</h6>
-                </Link>
-                <hr className="dropdown-divider" />
-                <Link to="/mastergender" className="dropdown-item">
-                  <h6 className="fw-normal mb-0">Sex</h6>
-                </Link>
-                <hr className="dropdown-divider" />
-                <Link to="/mastertrainingtype" className="dropdown-item">
-                  <h6 className="fw-normal mb-0">Training Type</h6>
-                </Link>
-
-                <hr className="dropdown-divider" />
-                <Link to="/mastercomponents" className="dropdown-item">
-                  <h6 className="fw-normal mb-0">Components</h6>
-                </Link>
-                <hr className="dropdown-divider" />
-                <Link to="/mastervenue" className="dropdown-item">
-                  <h6 className="fw-normal mb-0">Venue</h6>
-                </Link>
               
-              </div>
             <Link to="/" className="nav-item nav-link"><i className="fa fa-sign-out-alt me-2"></i>Logout</Link>
           </div>
         </nav>

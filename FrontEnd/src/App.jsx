@@ -28,6 +28,13 @@ import Components from "./components/MasterComponents/components/Components";
 import Locations from "./components/MasterComponents/locations/Locations";
 import Roles from "./components/roles/Roles";
 import Venue from "./components/MasterComponents/Venue/Venue";
+import TypeOfLeave from "./components/MasterComponents/typeOfLeave/TypeOfLeave";
+import DsrStatus from "./components/MasterComponents/DSRFieldstatus/DsrStatus";
+import NameOfEventsCeremonies from "./components/MasterComponents/nameOfEvent&Ceremonies/nameOfEventsCeremonies";
+import CalendarWeekManager from "./components/MasterComponents/calenderWeek/CalendarWeekManager";
+import SubjectManager from "./components/MasterComponents/subject/SubjectManager";
+import BreaksManager from "./components/MasterComponents/breaks/BreaksManager";
+import BatchDetailsForm from "./components/FormComponents/BatchDetailsForm";
 
 
 const App = () => {
@@ -80,6 +87,13 @@ const App = () => {
         <Route path="/mastertrainingtype" element={<TrainingType/>} />
         <Route path="/mastercomponents" element={<Components/>} />
         <Route path="/mastervenue" element={<Venue/>} />
+        <Route path ="/masterTypeOfLeave" element={<TypeOfLeave/>} />
+        <Route path="/masterdsrStatus" element={<DsrStatus/>} />
+        <Route path="/masternameofeventsceremonies" element={<NameOfEventsCeremonies/>} />
+        <Route path="/masterCalendarWeekManager" element={<CalendarWeekManager/>} />
+        <Route path="/mastersubjectmanager" element={<SubjectManager/>} />
+        <Route path="/masterbreaksmanager"  element={<BreaksManager/>} />
+        <Route path="/batchdetailsform" element={<BatchDetailsForm/>} />
       </Routes>
 
     </BrowserRouter>

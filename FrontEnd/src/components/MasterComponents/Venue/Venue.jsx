@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Table } from 'react-bootstrap';
-import SPNav from '../../SPNav';
+import ComputerProgrammerNav from '../../ComputerProgrammerNav';
 
 function Venue() {
   const locations = ['All PTS,ISTC & TNPH', 'All PTS', 'All ISTC', 'TNPH'];
@@ -42,7 +42,7 @@ function Venue() {
   };
 
   return (
-    <SPNav>
+    <ComputerProgrammerNav>
     <div className='master-organization'>
       <h4 className='title-clr'>Venue</h4>
       <div className="master-organization-form w-100 p-3 mb-3">
@@ -137,7 +137,7 @@ function Venue() {
         </Table>
       </div>
     </div>
-    </SPNav>
+    </ComputerProgrammerNav>
   );
 }
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Table } from 'react-bootstrap';
-import SPNav from '../../SPNav';
+import ComputerProgrammerNav from '../../ComputerProgrammerNav';
 
 function TrainingType() {
   const [trainingtype, setTrainingtype] = useState('');
@@ -34,7 +34,7 @@ function TrainingType() {
   };
 
   return (
-    <SPNav>
+    <ComputerProgrammerNav>
     <div className='master-organization'>
       <h4 className='title-clr'>Training Type</h4>
       <div className="master-organization-form p-3 mb-3">
@@ -104,7 +104,7 @@ function TrainingType() {
         </Table>
       </div>
     </div>
-    </SPNav>
+    </ComputerProgrammerNav>
   );
 }
 
