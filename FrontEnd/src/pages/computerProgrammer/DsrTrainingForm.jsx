@@ -23,10 +23,11 @@ function DsrTrainingForm() {
     <main className="pt-3">
         <div className="container-fluid">
             <div className="row">
-                <div className="col-md-12">
-                    <h4 className='title-clr'>Create DSR</h4>
+                <div className="col-md-12 row">
+                    <div className='col-md-2'><h4 className='title-clr'>Create DSR</h4></div>
+                    <div className='col-md-3'><input type='date' className='form-control'></input></div>
                 </div>
-            </div>
+            </div><br></br>
             <div className="row">
                 <div className="col-xl-12">
                     <div className="card bg-white">
