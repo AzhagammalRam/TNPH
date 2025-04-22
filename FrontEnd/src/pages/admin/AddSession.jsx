@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AdminNav } from '../../components';
 import { Link } from 'react-router-dom';
-
+ 
 const AddSession = () => {
   // Dummy data
   const modules = [
@@ -37,7 +37,6 @@ const AddSession = () => {
 
   return (
     <>
-    {/* <AdminNav activeCourses={"active"}> */}
         <main className="pt-3">
             <div className="container-fluid">
                 <div className="row">
@@ -151,7 +150,6 @@ const AddSession = () => {
                 </div>
             </div>
         </main>
-    {/* </AdminNav> */}
     </>
   );
 };
