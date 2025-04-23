@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const BatchDetailsForm = () => {
   const [formData, setFormData] = useState({
@@ -53,21 +54,24 @@ const BatchDetailsForm = () => {
   return (
     <div className="container mt-4">
     <h4 className="mb-4 title-clr">Batch Details</h4>
+    <Link to="/AddBatch">
+      <button type="button" name="cid" className="btn btn-outline-success mb-4"><i className="bi bi-arrow-left me-2"></i>Batches</button>
+    </Link>
     <div className="card shadow p-4 border border-secondary">
       <form onSubmit={handleSubmit}>
-        <div className="row mb-3">
-          <div className="col-md-3">
+        <div className="row">
+          <div className="col-md-3 mb-3">
             <label className="form-label">Organisation</label>
-            <select className="form-select w-100" name="organisation" value={formData.organisation} onChange={handleChange}>
+            <select className="form-control w-100" name="organisation" value={formData.organisation} onChange={handleChange}>
               <option value="">Select Organisation</option>
               {Object.keys(organisations).map(org => (
                 <option key={org} value={org}>{org}</option>
               ))}
             </select>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-3 mb-3">
             <label className="form-label">Location</label>
-            <select className="form-select w-100" name="location" value={formData.location} onChange={handleChange}>
+            <select className=" form-control w-100" name="location" value={formData.location} onChange={handleChange}>
               <option value="">Select Location</option>
               {formData.organisation &&
                 organisations[formData.organisation].map(loc => (
@@ -75,49 +79,46 @@ const BatchDetailsForm = () => {
                 ))}
             </select>
           </div>
-          <div className="col-md-2">
+          <div className="col-md-3 mb-3">
             <label className="form-label">Training Type</label>
-            <select className="form-select w-100" name="trainingType" value={formData.trainingType} onChange={handleChange}>
+            <select className="form-control w-100" name="trainingType" value={formData.trainingType} onChange={handleChange}>
               <option value="">Select Training Type</option>
               {trainingTypes.map(type => (
                 <option key={type} value={type}>{type}</option>
               ))}
             </select>
           </div>
-          <div className="col-md-2">
+          <div className="col-md-3 mb-3">
             <label className="form-label">Rank</label>
-            <select className="form-select w-100" name="rank" value={formData.rank} onChange={handleChange}>
+            <select className="form-control w-100" name="rank" value={formData.rank} onChange={handleChange}>
               <option value="">Select Rank</option>
               {ranks.map(rank => (
                 <option key={rank} value={rank}>{rank}</option>
               ))}
             </select>
           </div>
-          <div className="col-md-2">
+          <div className="col-md-3 mb-3">
             <label className="form-label">Role</label>
-            <select className="form-select w-100" name="role" value={formData.role} onChange={handleChange}>
+            <select className="form-control w-100" name="role" value={formData.role} onChange={handleChange}>
               <option value="">Select Role</option>
               {roles.map(role => (
                 <option key={role} value={role}>{role}</option>
               ))}
             </select>
           </div>
-          </div>
-        <div className="row mb-3">
-          <div className="col-md-4">
+          <div className="col-md-3 mb-3">
             <label className="form-label">Batch No</label>
             <input type="text" className="form-control" name="batchNo" value={formData.batchNo} readOnly />
           </div>
-          <div className="col-md-4">
+          <div className="col-md-3 mb-3">
             <label className="form-label">From Date</label>
             <input type="date" className="form-control" name="fromDate" value={formData.fromDate} onChange={handleChange} />
           </div>
-          <div className="col-md-4">
+          <div className="col-md-3 mb-3">
             <label className="form-label">To Date</label>
             <input type="date" className="form-control" name="toDate" value={formData.toDate} onChange={handleChange} />
           </div>
         </div>
-  
         <div className="row">
           {[
             ['rpcAlloted', 'RPC Allotted by Govt'],
@@ -130,7 +131,7 @@ const BatchDetailsForm = () => {
             ['casualities', 'Casualities'],
             ['od', 'OD']
           ].map(([name, label], index) => (
-            <div className="col-md-4 mb-3" key={name}>
+            <div className="col-md-3 mb-3" key={name}>
               <label className="form-label">{label}</label>
               <input
                 type="text"

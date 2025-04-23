@@ -86,7 +86,7 @@ function ComputerProgrammerNav({username,position,activeDashboard,activeProfile,
             <Link to="/leave" className={`nav-item nav-link ${activeLeave || defaultClasses}`}><i className="fa fa-id-badge me-2"></i>Leave</Link>
             <Link to="/eventsAndCeremonies" className={`nav-item nav-link ${activeEventsAndCeremonies || defaultClasses}`}><i className="fa fa-address-book me-2"></i>Events & Ceremonies</Link>
             <Link to="/week-classes" className={`nav-item nav-link ${activeTimetable || defaultClasses}`}><i className="fa fa-calendar me-2"></i>Timetable</Link>
-            <Link to="/DsrReport" className={`nav-item nav-link ${activeProfile || defaultClasses}`}><i className="fa fa-archive me-2"></i>Archive</Link>
+            <Link to="/ArchiveYear" className={`nav-item nav-link ${activeProfile || defaultClasses}`}><i className="fa fa-archive me-2"></i>Archive</Link>
             <Link className="nav-link dropdown-toggle dropdown" data-bs-toggle="dropdown">
                             <i className="fa fa-flag me-lg-2"></i>
                             <span className="d-none d-lg-inline-flex">Masters</span>

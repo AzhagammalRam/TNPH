@@ -35,7 +35,12 @@ import CalendarWeekManager from "./components/MasterComponents/calenderWeek/Cale
 import SubjectManager from "./components/MasterComponents/subject/SubjectManager";
 import BreaksManager from "./components/MasterComponents/breaks/BreaksManager";
 import BatchDetailsForm from "./components/FormComponents/BatchDetailsForm";
+<<<<<<< HEAD
 import AdminDashboard from "./pages/admin/AdminDashboard";
+=======
+import ArchiveYear from "./pages/computerProgrammer/ArchiveYear";
+import ArchiveMonth from "./pages/computerProgrammer/ArchiveMonth";
+>>>>>>> 65e924bb6364c3a1aabd40cb328c46aa6c80175c
 
 
 const App = () => {
@@ -95,7 +100,12 @@ const App = () => {
         <Route path="/mastersubjectmanager" element={<SubjectManager/>} />
         <Route path="/masterbreaksmanager"  element={<BreaksManager/>} />
         <Route path="/batchdetailsform" element={<BatchDetailsForm/>} />
+<<<<<<< HEAD
         <Route path="/admindashboard" element={<AdminDashboard />} />
+=======
+        <Route path="/ArchiveYear" element={<ArchiveYear />} />
+        <Route path="/ArchiveMonth/:id" element={<ArchiveMonth />} />
+>>>>>>> 65e924bb6364c3a1aabd40cb328c46aa6c80175c
       </Routes>
 
     </BrowserRouter>

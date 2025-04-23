@@ -15,7 +15,7 @@ function TrainingDivisionCard() {
                 <i className="bi bi-people display-4 mb-3"></i>
                 <h5 className="card-title">Batch A</h5>
               </div>
-              <Link to="/group-session" className="nav-link text-white">
+              <Link to="/AddBatch" className="nav-link text-white">
                 <div className="card-footer d-flex">
                   View Details
                   <span className="ms-auto">
@@ -31,7 +31,7 @@ function TrainingDivisionCard() {
                 <i className="bi bi-people display-4 mb-3"></i>
                 <h5 className="card-title">Batch B</h5>
               </div>
-              <Link to="/group-session" className="nav-link text-white">
+              <Link to="/AddBatch" className="nav-link text-white">
                 <div className="card-footer d-flex">
                   View Details
                   <span className="ms-auto">
@@ -47,7 +47,7 @@ function TrainingDivisionCard() {
                 <i className="bi bi-people display-4 mb-3"></i>
                 <h5 className="card-title">Batch C</h5>
               </div>
-              <Link to="/group-session" className="nav-link text-white">
+              <Link to="/AddBatch" className="nav-link text-white">
                 <div className="card-footer d-flex">
                   View Details
                   <span className="ms-auto">
