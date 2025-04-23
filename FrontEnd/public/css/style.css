@@ -41,6 +41,9 @@
     background-color: khaki;
     color: #232771;
 }
+.bg-khaki-lt {
+    background-color: #f7f3d0;
+}
 
 .bg-imgb {
     background: linear-gradient(rgb(35 39 113 / 92%), rgb(35 39 113 / 85%)), 
@@ -121,6 +124,9 @@
 }
 .txt-align-right {
     text-align: right;
+}
+.txt-align-left {
+    text-align: left;
 }
 
 .back-to-top {
