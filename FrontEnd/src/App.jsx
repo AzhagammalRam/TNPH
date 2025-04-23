@@ -35,6 +35,7 @@ import CalendarWeekManager from "./components/MasterComponents/calenderWeek/Cale
 import SubjectManager from "./components/MasterComponents/subject/SubjectManager";
 import BreaksManager from "./components/MasterComponents/breaks/BreaksManager";
 import BatchDetailsForm from "./components/FormComponents/BatchDetailsForm";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 
 
 const App = () => {
@@ -94,6 +95,7 @@ const App = () => {
         <Route path="/mastersubjectmanager" element={<SubjectManager/>} />
         <Route path="/masterbreaksmanager"  element={<BreaksManager/>} />
         <Route path="/batchdetailsform" element={<BatchDetailsForm/>} />
+        <Route path="/admindashboard" element={<AdminDashboard />} />
       </Routes>
 
     </BrowserRouter>
