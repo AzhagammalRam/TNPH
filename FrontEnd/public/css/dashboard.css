@@ -13,11 +13,11 @@ body {
   --color: rgba(30, 30, 30);
   --bgColor: rgb(215, 215, 215);
   min-height: 100vh;
-
+/* 
   display: grid;
   align-content: center;
   gap: 2rem;
-  padding: 2rem;
+  padding: 2rem; */
 
   font-family: "Oxygen", sans-serif;
   color: var(--color);

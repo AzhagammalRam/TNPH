@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../organization/organization.css';
 import { Table } from 'react-bootstrap';
-import ComputerProgrammerNav from '../../ComputerProgrammerNav';
+
 
 
 function JobType() {
@@ -36,7 +36,7 @@ function JobType() {
   };
 
   return (
-   <ComputerProgrammerNav>
+   
     <div className='master-organization'>
       <h4 className='title-clr'>Job Type</h4>
       <div className="master-organization-form p-3 mb-3">
@@ -104,7 +104,7 @@ function JobType() {
         </Table>
       </div>
     </div>
-    </ComputerProgrammerNav>  
+   
   );
 }
 

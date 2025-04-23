@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Table } from 'react-bootstrap';
-import ComputerProgrammerNav from '../../ComputerProgrammerNav';
+
 
 
 function Components() {
@@ -35,7 +35,7 @@ function Components() {
   };
 
   return (
-    <ComputerProgrammerNav>
+   
     <div className='master-organization'>
       <h4 className='title-clr'>Components</h4>
       <div className="master-organization-form p-3 mb-3">
@@ -105,7 +105,6 @@ function Components() {
         </Table>
       </div>
     </div>
-    </ComputerProgrammerNav>
   );
 }
 

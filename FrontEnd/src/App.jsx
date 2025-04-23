@@ -84,23 +84,26 @@ const App = () => {
         <Route path="/AddBatch" element={<AddBatch />} />
         <Route path="/BatchDetails" element={<BatchDetails />} />
         <Route path="/TimtableReport" element={<TimtableReport />} />
-        <Route path="/masterorganization" element={<Organization/>} />
-        <Route path="/masterlocation" element={<Locations/>} />
-        <Route path="/masterjobtype"  element={<JobType/>} />
-        <Route path="/masterrank" element={<Ranks/>} />
-        <Route path="/masterroles" element={<Roles/>} />
-        <Route path="/mastergender" element={<Sex/>} />
-        <Route path="/mastertrainingtype" element={<TrainingType/>} />
-        <Route path="/mastercomponents" element={<Components/>} />
-        <Route path="/mastervenue" element={<Venue/>} />
-        <Route path ="/masterTypeOfLeave" element={<TypeOfLeave/>} />
-        <Route path="/masterdsrStatus" element={<DsrStatus/>} />
-        <Route path="/masternameofeventsceremonies" element={<NameOfEventsCeremonies/>} />
-        <Route path="/masterCalendarWeekManager" element={<CalendarWeekManager/>} />
-        <Route path="/mastersubjectmanager" element={<SubjectManager/>} />
-        <Route path="/masterbreaksmanager"  element={<BreaksManager/>} />
+        {/* Nested Routes */}
+      <Route path="/admindashboard" element={<AdminDashboard />} >
+        <Route path="masterorganization" element={<Organization/>} />
+        <Route path="masterlocation" element={<Locations/>} />
+        <Route path="masterjobtype"  element={<JobType/>} />
+        <Route path="masterrank" element={<Ranks/>} />
+        <Route path="masterroles" element={<Roles/>} />
+        <Route path="mastergender" element={<Sex/>} />
+        <Route path="mastertrainingtype" element={<TrainingType/>} />
+        <Route path="mastercomponents" element={<Components/>} />
+        <Route path="mastervenue" element={<Venue/>} />
+        <Route path ="masterTypeOfLeave" element={<TypeOfLeave/>} />
+        <Route path="masterdsrStatus" element={<DsrStatus/>} />
+        <Route path="masternameofeventsceremonies" element={<NameOfEventsCeremonies/>} />
+        <Route path="masterCalendarWeekManager" element={<CalendarWeekManager/>} />
+        <Route path="mastersubjectmanager" element={<SubjectManager/>} />
+        <Route path="masterbreaksmanager"  element={<BreaksManager/>} />
+       </Route>
         <Route path="/batchdetailsform" element={<BatchDetailsForm/>} />
-        <Route path="/admindashboard" element={<AdminDashboard />} />
+        
         <Route path="/ArchiveYear" element={<ArchiveYear />} />
         <Route path="/ArchiveMonth/:id" element={<ArchiveMonth />} />
         <Route path="/index-DIG" element={<IndexDIG />} />

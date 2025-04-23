@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Table } from 'react-bootstrap';
-import ComputerProgrammerNav from '../../ComputerProgrammerNav';
+
 
 function NameOfEventsCeremonies() {
   const [eventName, setEventName] = useState('');
@@ -34,7 +34,7 @@ function NameOfEventsCeremonies() {
   };
 
   return (
-    <ComputerProgrammerNav>
+    
       <div className='master-organization'>
         <h4 className='title-clr'>Name of Events and Ceremonies</h4>
         <div className="master-organization-form p-3 mb-3">
@@ -104,7 +104,7 @@ function NameOfEventsCeremonies() {
           </Table>
         </div>
       </div>
-    </ComputerProgrammerNav>
+   
   );
 }
 

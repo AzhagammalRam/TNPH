@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Table } from 'react-bootstrap';
-import ComputerProgrammerNav from '../../ComputerProgrammerNav';
+
 
 function CalendarWeekManager() {
   const [calendarWeek, setCalendarWeek] = useState('');
@@ -34,7 +34,7 @@ function CalendarWeekManager() {
   };
 
   return (
-    <ComputerProgrammerNav>
+   
       <div className='master-organization'>
         <h4 className='title-clr'>Calendar Week</h4>
         <div className="master-organization-form p-3 mb-3">
@@ -104,7 +104,7 @@ function CalendarWeekManager() {
           </Table>
         </div>
       </div>
-    </ComputerProgrammerNav>
+    
   );
 }
 

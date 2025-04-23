@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './organization.css';
 import { Table } from 'react-bootstrap';
-import ComputerProgrammerNav from '../../ComputerProgrammerNav';
+
 
 
 function Organization() {
@@ -37,7 +37,7 @@ function Organization() {
 
   return (
  
-  <ComputerProgrammerNav>
+ 
     <div className='master-organization'>
       <h4 className='title-clr'>Organization</h4>
       <div className="master-organization-form p-3 mb-3">
@@ -105,7 +105,7 @@ function Organization() {
         </Table>
       </div>
     </div>
-    </ComputerProgrammerNav>
+    
  
   );
 }

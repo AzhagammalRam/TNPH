@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Table } from 'react-bootstrap';
-import ComputerProgrammerNav from '../../ComputerProgrammerNav';
+
 
 function Locations() {
   const organizations = ['TNPH', 'PTS', 'ISTC']; 
@@ -42,7 +42,7 @@ function Locations() {
   };
 
   return (
-    <ComputerProgrammerNav>
+   
     <div className='master-organization'>
       <h4 className='title-clr'>Locations</h4>
       <div className="master-organization-form w-100 p-3 mb-3">
@@ -137,7 +137,7 @@ function Locations() {
         </Table>
       </div>
     </div>
-    </ComputerProgrammerNav>
+    
   );
 }
 
