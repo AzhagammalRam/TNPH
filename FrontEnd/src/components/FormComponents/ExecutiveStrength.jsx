@@ -57,7 +57,7 @@ function ExecutiveStrength() {
                 <td><label>1</label></td>
                 </>
               )} 
-              { userRole === 'SPCamp' || userRole === 'SP' && (
+              { (userRole === 'SPCamp' || userRole === 'SP') && (
                 <>
                 <td><label>2</label></td>
                 <td><label>3</label></td>  
@@ -84,7 +84,7 @@ function ExecutiveStrength() {
                 <td><label>1</label></td> 
                 </>
               )}
-              { userRole === 'SPCamp' || userRole === 'SP' && (
+              { (userRole === 'SPCamp' || userRole === 'SP') && (
                 <>
                 <td><label>2</label></td>
                 <td><label>3</label></td>  
@@ -111,7 +111,7 @@ function ExecutiveStrength() {
               <td><input name="email" placeholder="-"  type="text" /></td>
                 </>
               )} 
-              { userRole === 'SPCamp' || userRole === 'SP' && (
+              { (userRole === 'SPCamp' || userRole === 'SP') && (
                 <>
                 <td><input name="email" placeholder="-"  type="text" /></td>
                 <td><input name="email" placeholder="-"  type="text" /></td> 
@@ -138,7 +138,7 @@ function ExecutiveStrength() {
               <td><input name="email" placeholder="-"  type="text" /></td>
                 </>
               )} 
-              { userRole === 'SPCamp' || userRole === 'SP' && (
+              { (userRole === 'SPCamp' || userRole === 'SP') && (
                 <>
                 <td><input name="email" placeholder="2"  type="text" /></td>
                 <td><input name="email" placeholder="3"  type="text" /></td> 
@@ -163,7 +163,7 @@ function ExecutiveStrength() {
               <td><input name="email" placeholder="-"  type="text" /></td> 
                 </>
               )}
-              { userRole === 'SPCamp' || userRole === 'SP' && (
+              { (userRole === 'SPCamp' || userRole === 'SP') && (
                 <>
                 <td><input name="email" placeholder="2"  type="text" /></td>
                 <td><input name="email" placeholder="3"  type="text" /></td> 
@@ -188,7 +188,7 @@ function ExecutiveStrength() {
               <td><label>1</label></td> 
                 </>
               )}
-              { userRole === 'SPCamp' || userRole === 'SP' && (
+              { (userRole === 'SPCamp' || userRole === 'SP') && (
                 <>
                 <td><label>0</label></td>
                 <td><label>0</label></td> 

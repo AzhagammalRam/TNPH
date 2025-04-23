@@ -4,6 +4,7 @@ import ComputerProgrammerNav from "./ComputerProgrammerNav";
 import SPCampNav from "./SPCampNav";
 import SPNav from "./SPNav";
 import PrincipalNav from "./PrincipalNav";
+import IGNav from "./IGNav";
 
 export {
     AdminNav,
@@ -12,4 +13,5 @@ export {
     SPCampNav,
     SPNav,
     PrincipalNav,
+    IGNav,
 }
