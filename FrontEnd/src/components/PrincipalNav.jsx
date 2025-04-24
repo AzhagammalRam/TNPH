@@ -115,7 +115,7 @@ function PricipalNav({username,position,activeDashboard,activeProfile,activeTime
         {/* Navbar */}
         <nav className="navbar navbar-expand bg-gray navbar-dark sticky-top px-4 py-0">
           <Link className="navbar-brand d-flex d-lg-none me-4">
-            <h2 className="text-primary mb-0"><i className="far fa-calendar-alt"></i></h2>
+            <h2 className="text-primary mb-0"></h2>
           </Link>
           <Link className="sidebar-toggler flex-shrink-0" onClick={handleSidebarToggle}>
             <i className="fa fa-bars"></i>

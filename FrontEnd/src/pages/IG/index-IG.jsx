@@ -1,7 +1,5 @@
 import React from 'react';
-import { SPNav } from '../../components';
-import { Link } from 'react-router-dom';
-import DashboardGrid from '../../components/FormComponents/DashboardGrid'
+import { IGNav } from '../../components';
 import "../../../public/css/dashboard.css"
 import IGDIGCard from '../../components/FormComponents/DashboardComponents/IGDIGCard';
 
@@ -10,12 +8,19 @@ const IndexIG = () => {
   sessionStorage.setItem("role", "IG");
 
    return (
+    <IGNav activeDashboard={"active"}>
         <main className="pt-3">
+            <nav class="social">
+            <ul>
+                    <li><a href="#">Archive <i class="fa fa-archive"></i></a></li>
+                    <li><a href="#">Reports <i class="fa fa-database"></i></a></li>
+                </ul>
+            </nav>
             <div className="container-fluid">
                 <div className="row">
                 <div className="col-md-12">
-                    <h4 className='title-clr'>Dashboard</h4>
-                    <h6 className='txtred'>Welcome to IG</h6>
+                    <div className='ms-5'><h4 className='title-clr'>Dashboard</h4>
+                    <h6 className='txtred'>Welcome to IG</h6></div>
                 </div>
                 </div>
                 <div className="row">
@@ -23,6 +28,7 @@ const IndexIG = () => {
                 </div>
             </div>
         </main>
+    </IGNav>
   );
 };
 
