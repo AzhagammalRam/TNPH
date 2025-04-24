@@ -1,37 +1,30 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, Typography, Box, IconButton } from '@mui/material';
-
-// Material Icons
-import BusinessIcon from '@mui/icons-material/Business';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import WorkIcon from '@mui/icons-material/Work';
-import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
-import GroupIcon from '@mui/icons-material/Group';
-import WcIcon from '@mui/icons-material/Wc';
-import SchoolIcon from '@mui/icons-material/School';
-import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
-import EventIcon from '@mui/icons-material/Event';
-import LogoutIcon from '@mui/icons-material/Logout';
-import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
-import CelebrationIcon from '@mui/icons-material/Celebration';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
-import TimerIcon from '@mui/icons-material/Timer';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { Card, CardContent, Typography, Box, useMediaQuery } from '@mui/material';
+import {
+  Home as HomeIcon,
+  Business as BusinessIcon,
+  LocationOn as LocationOnIcon,
+  Work as WorkIcon,
+  MilitaryTech as MilitaryTechIcon,
+  Group as GroupIcon,
+  Wc as WcIcon,
+  School as SchoolIcon,
+  SettingsApplications as SettingsApplicationsIcon,
+  Event as EventIcon,
+  Logout as LogoutIcon,
+  AssignmentTurnedIn as AssignmentTurnedInIcon,
+  Celebration as CelebrationIcon,
+  CalendarMonth as CalendarMonthIcon,
+  MenuBook as MenuBookIcon,
+  Timer as TimerIcon,
+} from '@mui/icons-material';
 
 const MasterNavBar = () => {
   const navigate = useNavigate();
-  const scrollRef = useRef();
-
-  const scroll = (scrollOffset) => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: scrollOffset, behavior: 'smooth' });
-    }
-  };
 
   const data = [
+    { name: 'Home', path: '/admindashboard', icon: <HomeIcon /> }, 
     { name: 'Organization', path: '/admindashboard/masterorganization', icon: <BusinessIcon /> },
     { name: 'Locations', path: '/admindashboard/masterlocation', icon: <LocationOnIcon /> },
     { name: 'Job Type', path: '/admindashboard/masterjobtype', icon: <WorkIcon /> },
@@ -49,53 +42,59 @@ const MasterNavBar = () => {
     { name: 'Breaks Manager', path: '/admindashboard/masterbreaksmanager', icon: <TimerIcon /> },
   ];
 
-  return (
-    <Box p={4} position="relative">
-      <IconButton
-        onClick={() => scroll(-700)}
-        sx={{ position: 'absolute', top: '40%', left: 0, zIndex: 1, backgroundColor: '#fff' }}
-      >
-        <ChevronLeftIcon />
-      </IconButton>
+  // Use breakpoints to set dynamic width
+  const isSmall = useMediaQuery('(max-width: 600px)');
+  const isMedium = useMediaQuery('(max-width: 960px)');
 
+  const getCardWidth = () => {
+    if (isSmall) return '32%';      // 3 items per row
+    if (isMedium) return '23%';     // 4 items per row
+    return '8%';                   // 7–8 items per row
+  };
+
+  return (
+    <Box p={4}>
       <Box
-        ref={scrollRef}
         sx={{
           display: 'flex',
-          overflowX: 'auto',
+          flexWrap: 'wrap',
           gap: 2,
-          scrollBehavior: 'smooth',
-          p: 1,
-          scrollbarWidth: 'none', // Firefox
-          '&::-webkit-scrollbar': {
-            display: 'none', // Chrome, Safari
-          },
+          justifyContent: 'center',
         }}
       >
         {data.map((item, index) => (
-          <Box
-            key={index}
-            sx={{ minWidth: 100, flex: '0 0 auto'  }}
-          >
+          <Box key={index} sx={{ flex: `1 0 ${getCardWidth()}`, minWidth: 100 }}>
             <Card
               onClick={() => navigate(item.path)}
               sx={{
                 cursor: 'pointer',
                 transition: '0.3s',
                 backgroundColor: '#E8F9FF',
-                border: '1px solid #ccc', // 👈 Add this line
+                border: '1px solid #ccc',
                 borderRadius: 2,
                 '&:hover': {
                   boxShadow: 3,
-                  borderColor: '#fff', // optional: changes border color on hover
+                  borderColor: '#fff',
                 },
               }}
             >
-              <CardContent sx={{ textAlign: 'center' }}>
-                <Box sx={{ fontSize: 10, color: '#1976d2' }}>
-                  {item.icon}
-                </Box>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" mt={1}>
+              <CardContent sx={{ textAlign: 'center', p: 1 }}>
+                <Box sx={{ fontSize: 18, color: '#1976d2' }}>{item.icon}</Box>
+                <Typography
+                  sx={{
+                    fontSize: 11,
+                    color: 'text.secondary',
+                    mt: 0.5,
+                    lineHeight: 1.2,
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'normal',
+                  }}
+                  align="center"
+                >
                   {item.name}
                 </Typography>
               </CardContent>
@@ -103,13 +102,6 @@ const MasterNavBar = () => {
           </Box>
         ))}
       </Box>
-
-      <IconButton
-        onClick={() => scroll(700)}
-        sx={{ position: 'absolute', top: '40%', right: 0, zIndex: 1, backgroundColor: '#fff' }}
-      >
-        <ChevronRightIcon />
-      </IconButton>
     </Box>
   );
 };
