@@ -47,9 +47,9 @@ const MasterNavBar = () => {
   const isMedium = useMediaQuery('(max-width: 960px)');
 
   const getCardWidth = () => {
-    if (isSmall) return '32%';      // 3 items per row
-    if (isMedium) return '23%';     // 4 items per row
-    return '8%';                   // 7–8 items per row
+    if (isSmall) return '22%';     
+    if (isMedium) return '15%';    
+    return '8%';                   
   };
 
   return (
