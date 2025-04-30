@@ -1,0 +1,24 @@
+[
+  { "email": "admin1@example.com", "password": "admin123", "role": "admin" },
+  { "email": "admin2@example.com", "password": "admin456", "role": "admin" },
+  { "email": "user1@example.com", "password": "user123", "role": "user" },
+  { "email": "user2@example.com", "password": "user456", "role": "user" },
+  {
+    "email": "devloper1@example.com",
+    "password": "rec123",
+    "role": "devloper"
+  },
+  {
+    "email": "devloper2@example.com",
+    "password": "rec456",
+    "role": "devloper"
+  },
+  { "email": "user3@example.com", "password": "user789", "role": "user" },
+  { "email": "admin3@example.com", "password": "admin789", "role": "admin" },
+  {
+    "email": "devloper3@example.com",
+    "password": "rec789",
+    "role": "devloper"
+  },
+  { "email": "user4@example.com", "password": "user321", "role": "user" }
+]
