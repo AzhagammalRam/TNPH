@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect ,useRef} from 'react';
 import { Table } from 'react-bootstrap';
+import axios from 'axios';
+import { API_BASE } from '../../../config/api';
+
 
 
 function NameOfEventsCeremonies() {
@@ -8,11 +11,42 @@ function NameOfEventsCeremonies() {
   const [editIndex, setEditIndex] = useState(null);
   const [editName, setEditName] = useState('');
 
-  const handleSave = () => {
-    if (!eventName.trim()) return alert('Please enter a name of event or ceremony');
-    const newEntry = { name: eventName };
-    setEventList([...eventList, newEntry]);
-    setEventName('');
+  const fetchedOnce = useRef(false);
+
+  useEffect(() => {
+    if (fetchedOnce.current) return; // Prevent duplicate fetch
+    fetchedOnce.current = true;
+  
+    const fetchInitialEventList = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/events`);
+        setEventList(res.data);
+      } catch (err) {
+        console.error('Failed to fetch Event List', err);
+      }
+    };
+  
+    fetchInitialEventList();
+  }, []);
+
+  const fetchEventList = async () => {
+    try {
+      const res = await axios.get(`${API_BASE}/events`);
+      setEventList(res.data);
+    } catch (err) {
+      console.error('Error fetching event list:', err);
+    }
+  };
+
+  const handleSave = async () => {
+    if (!eventName.trim()) return alert('Please enter an event name');
+    try {
+      await axios.post(`${API_BASE}/events`, { name: eventName });
+      setEventName('');
+      fetchEventList();
+    } catch (err) {
+      console.error('Error saving event:', err);
+    }
   };
 
   const handleEdit = (index) => {
@@ -20,17 +54,26 @@ function NameOfEventsCeremonies() {
     setEditName(eventList[index].name);
   };
 
-  const handleUpdate = (index) => {
-    const updatedList = [...eventList];
-    updatedList[index].name = editName;
-    setEventList(updatedList);
-    setEditIndex(null);
-    setEditName('');
+  const handleUpdate = async (index) => {
+    const event = eventList[index];
+    try {
+      await axios.put(`${API_BASE}/events/${event.id}`, { name: editName });
+      setEditIndex(null);
+      setEditName('');
+      fetchEventList();
+    } catch (err) {
+      console.error('Error updating event:', err);
+    }
   };
 
-  const handleDelete = (index) => {
-    const updatedList = eventList.filter((_, i) => i !== index);
-    setEventList(updatedList);
+  const handleDelete = async (index) => {
+    const id = eventList[index].id;
+    try {
+      await axios.delete(`${API_BASE}/events/${id}`);
+      fetchEventList();
+    } catch (err) {
+      console.error('Error deleting event:', err);
+    }
   };
 
   return (

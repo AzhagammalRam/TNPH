@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect, useRef} from 'react';
 import { Table } from 'react-bootstrap';
+import axios from 'axios';
+import { API_BASE } from '../../../config/api';
 
 function TypeOfLeave() {
   const [leaveType, setLeaveType] = useState('');
@@ -7,11 +9,42 @@ function TypeOfLeave() {
   const [editIndex, setEditIndex] = useState(null);
   const [editName, setEditName] = useState('');
 
-  const handleSave = () => {
-    if (!leaveType.trim()) return alert('Please enter a type of leave');
-    const newEntry = { name: leaveType };
-    setLeaveTypes([...leaveTypes, newEntry]);
-    setLeaveType('');
+  const fetchedOnce = useRef(false);
+
+  useEffect(() => {
+    if (fetchedOnce.current) return; // Prevent duplicate fetch
+    fetchedOnce.current = true;
+  
+    const fetchInitialLeaveTypes = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/leave-types`);
+        setLeaveTypes(res.data);
+      } catch (err) {
+        console.error('Failed to fetch Leave Types', err);
+      }
+    };
+  
+    fetchInitialLeaveTypes();
+  }, []);
+
+  const fetchLeaveTypes = async () => {
+    try {
+      const res = await axios.get(`${API_BASE}/leave-types`);
+      setLeaveTypes(res.data);
+    } catch (err) {
+      console.error('Error fetching leave types:', err);
+    }
+  };
+
+  const handleSave = async () => {
+    if (!leaveType.trim()) return alert('Please enter a leave type');
+    try {
+      await axios.post(`${API_BASE}/leave-types`, { name: leaveType });
+      setLeaveType('');
+      fetchLeaveTypes();
+    } catch (err) {
+      console.error('Error saving leave type:', err);
+    }
   };
 
   const handleEdit = (index) => {
@@ -19,17 +52,26 @@ function TypeOfLeave() {
     setEditName(leaveTypes[index].name);
   };
 
-  const handleUpdate = (index) => {
-    const updatedList = [...leaveTypes];
-    updatedList[index].name = editName;
-    setLeaveTypes(updatedList);
-    setEditIndex(null);
-    setEditName('');
+  const handleUpdate = async (index) => {
+    const leaveType = leaveTypes[index];
+    try {
+      await axios.put(`${API_BASE}/leave-types/${leaveType.id}`, { name: editName });
+      setEditIndex(null);
+      setEditName('');
+      fetchLeaveTypes();
+    } catch (err) {
+      console.error('Error updating leave type:', err);
+    }
   };
 
-  const handleDelete = (index) => {
-    const updatedList = leaveTypes.filter((_, i) => i !== index);
-    setLeaveTypes(updatedList);
+  const handleDelete = async (index) => {
+    const id = leaveTypes[index].id;
+    try {
+      await axios.delete(`${API_BASE}/leave-types/${id}`);
+      fetchLeaveTypes();
+    } catch (err) {
+      console.error('Error deleting leave type:', err);
+    }
   };
 
   return (

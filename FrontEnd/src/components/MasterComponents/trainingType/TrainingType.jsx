@@ -1,17 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect, useRef } from 'react';
 import { Table } from 'react-bootstrap';
-
+import axios from 'axios';
+import { API_BASE } from '../../../config/api';
 function TrainingType() {
   const [trainingtype, setTrainingtype] = useState('');
   const [trainingTypes, setTrainingTypes] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
   const [editName, setEditName] = useState('');
 
-  const handleSave = () => {
+  const fetchedOnce = useRef(false);
+
+  useEffect(() => {
+    if (fetchedOnce.current) return; // Prevent duplicate fetch
+    fetchedOnce.current = true;
+  
+    const fetchInitialTrainingTypes = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/training-types`);
+        setTrainingTypes(res.data);
+      } catch (err) {
+        console.error('Error fetching training types:', err);
+      }
+    };
+  
+    fetchInitialTrainingTypes();
+  }, []);
+
+  const fetchTrainingTypes = async () => {
+    try {
+      const res = await axios.get(`${API_BASE}/training-types`);
+      setTrainingTypes(res.data);
+    } catch (err) {
+      console.error('Error fetching training types:', err);
+    }
+  };
+
+  const handleSave = async () => {
     if (!trainingtype.trim()) return alert('Please enter a training type');
-    const newEntry = { name: trainingtype };
-    setTrainingTypes([...trainingTypes, newEntry]);
-    setTrainingtype('');
+    try {
+      await axios.post(`${API_BASE}/training-types`, { name: trainingtype });
+      setTrainingtype('');
+      fetchTrainingTypes();
+    } catch (err) {
+      console.error('Error saving training type:', err);
+    }
   };
 
   const handleEdit = (index) => {
@@ -19,17 +51,26 @@ function TrainingType() {
     setEditName(trainingTypes[index].name);
   };
 
-  const handleUpdate = (index) => {
-    const updatedList = [...trainingTypes];
-    updatedList[index].name = editName;
-    setTrainingTypes(updatedList);
-    setEditIndex(null);
-    setEditName('');
+  const handleUpdate = async (index) => {
+    const trainingType = trainingTypes[index];
+    try {
+      await axios.put(`${API_BASE}/training-types/${trainingType.id}`, { name: editName });
+      setEditIndex(null);
+      setEditName('');
+      fetchTrainingTypes();
+    } catch (err) {
+      console.error('Error updating training type:', err);
+    }
   };
 
-  const handleDelete = (index) => {
-    const updatedList = trainingTypes.filter((_, i) => i !== index);
-    setTrainingTypes(updatedList);
+  const handleDelete = async (index) => {
+    const id = trainingTypes[index].id;
+    try {
+      await axios.delete(`${API_BASE}/training-types/${id}`);
+      fetchTrainingTypes();
+    } catch (err) {
+      console.error('Error deleting training type:', err);
+    }
   };
 
   return (

@@ -20,20 +20,37 @@ function LoginAdmin() {
       setError('');
       // Navigate based on role
       if (matchedUser.role === 'admin'){
-        // navigate('/admin-dashboard');/
-        alert('Role : Admin');
+           navigate('/admindashboard')
+  
       }
          
-      else if (matchedUser.role === 'user') 
+      else if (matchedUser.role === 'principal') 
         {
-        // navigate('/user-dashboard');
-        alert('Role : User');
+        navigate('/index-Principal');
+       
         }
-      else if (matchedUser.role === 'developer') {
-        // navigate('/recruiter-dashboard');
-        alert('Role : Developer');
+      else if (matchedUser.role === 'programer') {
+        navigate('/index-computerProgrammer');
       }
-      
+      else if (matchedUser.role === 'trainingdivision') 
+        {
+        navigate('/TrainingDivision');
+       
+        }
+      else if (matchedUser.role === 'spcamp') {
+        navigate('/index-SPCamp');
+      }
+      else if (matchedUser.role === 'sp') 
+        {
+        navigate('/index-SP');
+       
+        }
+      else if (matchedUser.role === 'dig') {
+        navigate('/index-DIG');
+      }
+      else if (matchedUser.role === 'ig') {
+        navigate('/index-IG');
+      }
     } else {
       setError('Invalid email or password.');
     }

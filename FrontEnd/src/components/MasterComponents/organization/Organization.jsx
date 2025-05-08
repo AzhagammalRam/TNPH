@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './organization.css';
 import { Table } from 'react-bootstrap';
-
-
+import axios from 'axios';
+import { API_BASE } from '../../../config/api';
 
 function Organization() {
   const [organizationName, setOrganizationName] = useState('');
@@ -10,11 +10,43 @@ function Organization() {
   const [editIndex, setEditIndex] = useState(null);
   const [editName, setEditName] = useState('');
 
-  const handleSave = () => {
+  const fetchedOnce = useRef(false);
+
+  useEffect(() => {
+    if (fetchedOnce.current) return; // Prevent duplicate fetch
+    fetchedOnce.current = true;
+  
+    const fetchInitialOrganizations = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/organizations`);
+        setOrganizations(res.data);
+      } catch (err) {
+        console.error("Failed to fetch Organizations", err);
+      }
+    };
+  
+    fetchInitialOrganizations();
+  }, []);
+  
+
+  const fetchOrganizations = async () => {
+    try {
+      const res = await axios.get(`${API_BASE}/organizations`);
+      setOrganizations(res.data);
+    } catch (err) {
+      console.error("Failed to fetch Organisations", err);
+    }
+  };
+
+  const handleSave = async () => {
     if (!organizationName.trim()) return alert('Please enter an organization name');
-    const newEntry = { name: organizationName };
-    setOrganizations([...organizations, newEntry]);
-    setOrganizationName('');
+    try {
+      await axios.post(`${API_BASE}/organizations`, { name: organizationName });
+      setOrganizationName('');
+      fetchOrganizations();
+    } catch (err) {
+      console.error("Failed to save", err);
+    }
   };
 
   const handleEdit = (index) => {
@@ -22,22 +54,29 @@ function Organization() {
     setEditName(organizations[index].name);
   };
 
-  const handleUpdate = (index) => {
-    const updatedList = [...organizations];
-    updatedList[index].name = editName;
-    setOrganizations(updatedList);
-    setEditIndex(null);
-    setEditName('');
+  const handleUpdate = async (index) => {
+    const org = organizations[index];
+    try {
+      await axios.put(`${API_BASE}/organizations/${org.id}`, { name: editName });
+      setEditIndex(null);
+      setEditName('');
+      fetchOrganizations();
+    } catch (err) {
+      console.error("Update failed", err);
+    }
   };
 
-  const handleDelete = (index) => {
-    const updatedList = organizations.filter((_, i) => i !== index);
-    setOrganizations(updatedList);
+  const handleDelete = async (index) => {
+    const org = organizations[index];
+    try {
+      await axios.delete(`${API_BASE}/organizations/${org.id}`);
+      fetchOrganizations();
+    } catch (err) {
+      console.error("Delete failed", err);
+    }
   };
 
   return (
- 
- 
     <div className='master-organization'>
       <h4 className='title-clr'>Organization</h4>
       <div className="master-organization-form p-3 mb-3">
@@ -51,7 +90,6 @@ function Organization() {
               name="organizationName"
               value={organizationName}
               onChange={(e) => setOrganizationName(e.target.value)}
-              
             />
           </div>
         </div>
@@ -63,17 +101,17 @@ function Organization() {
       </div>
 
       <div className="master-organization-table p-3 mb-3">
-        <Table   bordered id="strength" className='smtbl responsive w-75'>
+        <Table bordered id="strength" className='smtbl responsive w-75'>
           <thead>
             <tr className='text-center'>
               <th>Sl.No</th>
-              <th >Organization</th>
+              <th>Organization</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {organizations.map((org, index) => (
-              <tr key={index}>
+              <tr key={org.id}>
                 <td>{index + 1}</td>
                 <td>
                   {editIndex === index ? (
@@ -105,8 +143,6 @@ function Organization() {
         </Table>
       </div>
     </div>
-    
- 
   );
 }
 

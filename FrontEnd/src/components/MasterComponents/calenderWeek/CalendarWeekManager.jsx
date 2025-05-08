@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Table } from 'react-bootstrap';
+import axios from 'axios';
+import { API_BASE } from '../../../config/api';
+
 
 
 function CalendarWeekManager() {
@@ -8,11 +11,42 @@ function CalendarWeekManager() {
   const [editIndex, setEditIndex] = useState(null);
   const [editName, setEditName] = useState('');
 
-  const handleSave = () => {
+  const fetchedOnce = useRef(false);
+
+  useEffect(() => {
+    if (fetchedOnce.current) return; // Prevent duplicate fetch
+    fetchedOnce.current = true;
+
+    const fetchInitialCalendarWeeks = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/calendar-weeks`);
+        setCalendarWeeks(res.data);
+      } catch (err) {
+        console.error('Failed to fetch Calendar Weeks', err);
+      }
+    };
+
+    fetchInitialCalendarWeeks();
+  }, []);
+
+  const fetchCalendarWeeks = async () => {
+    try {
+      const res = await axios.get(`${API_BASE}/calendar-weeks`);
+      setCalendarWeeks(res.data);
+    } catch (err) {
+      console.error('Error fetching calendar weeks:', err);
+    }
+  };
+
+  const handleSave = async () => {
     if (!calendarWeek.trim()) return alert('Please enter a calendar week');
-    const newEntry = { name: calendarWeek };
-    setCalendarWeeks([...calendarWeeks, newEntry]);
-    setCalendarWeek('');
+    try {
+      await axios.post(`${API_BASE}/calendar-weeks`, { name: calendarWeek });
+      setCalendarWeek('');
+      fetchCalendarWeeks();
+    } catch (err) {
+      console.error('Error saving calendar week:', err);
+    }
   };
 
   const handleEdit = (index) => {
@@ -20,17 +54,26 @@ function CalendarWeekManager() {
     setEditName(calendarWeeks[index].name);
   };
 
-  const handleUpdate = (index) => {
-    const updatedList = [...calendarWeeks];
-    updatedList[index].name = editName;
-    setCalendarWeeks(updatedList);
-    setEditIndex(null);
-    setEditName('');
+  const handleUpdate = async (index) => {
+    const calendarWeek = calendarWeeks[index];
+    try {
+      await axios.put(`${API_BASE}/calendar-weeks/${calendarWeek.id}`, { name: editName });
+      setEditIndex(null);
+      setEditName('');
+      fetchCalendarWeeks();
+    } catch (err) {
+      console.error('Error updating calendar week:', err);
+    }
   };
 
-  const handleDelete = (index) => {
-    const updatedList = calendarWeeks.filter((_, i) => i !== index);
-    setCalendarWeeks(updatedList);
+  const handleDelete = async (index) => {
+    const calendarWeek = calendarWeeks[index];
+    try {
+      await axios.delete(`${API_BASE}/calendar-weeks/${calendarWeek.id}`);
+      fetchCalendarWeeks();
+    } catch (err) {
+      console.error('Error deleting calendar week:', err);
+    }
   };
 
   return (

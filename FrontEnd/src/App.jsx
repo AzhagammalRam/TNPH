@@ -26,7 +26,7 @@ import Sex from "./components/MasterComponents/sex/Sex";
 import TrainingType from "./components/MasterComponents/trainingType/TrainingType";
 import Components from "./components/MasterComponents/components/Components";
 import Locations from "./components/MasterComponents/locations/Locations";
-import Roles from "./components/roles/Roles";
+import Roles from "./components/MasterComponents/roles/Roles";
 import Venue from "./components/MasterComponents/Venue/Venue";
 import TypeOfLeave from "./components/MasterComponents/typeOfLeave/TypeOfLeave";
 import DsrStatus from "./components/MasterComponents/DSRFieldstatus/DsrStatus";

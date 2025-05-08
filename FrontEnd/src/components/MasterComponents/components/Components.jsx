@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect, useRef} from 'react';
 import { Table } from 'react-bootstrap';
+import axios from 'axios';
+import { API_BASE } from '../../../config/api';
+
 
 
 
@@ -9,11 +12,42 @@ function Components() {
   const [editIndex, setEditIndex] = useState(null);
   const [editName, setEditName] = useState('');
 
-  const handleSave = () => {
-    if (!component.trim()) return alert('Please enter a Component');
-    const newEntry = { name: component };
-    setComponents([...components, newEntry]);
-    setComponent('');
+  const fetchedOnce = useRef(false);
+
+  useEffect(() => {
+    if (fetchedOnce.current) return; // Prevent duplicate fetch
+    fetchedOnce.current = true;
+  
+    const fetchInitialComponents = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/components`);
+        setComponents(res.data);
+      } catch (err) {
+        console.error("Failed to fetch Components", err);
+      }
+    };
+  
+    fetchInitialComponents();
+  }, []);
+
+  const fetchComponents = async () => {
+    try {
+      const res = await axios.get(`${API_BASE}/components`);
+      setComponents(res.data);
+    } catch (err) {
+      console.error('Error fetching components:', err);
+    }
+  };
+
+  const handleSave = async () => {
+    if (!component.trim()) return alert('Please enter a component');
+    try {
+      await axios.post(`${API_BASE}/components`, { name: component });
+      setComponent('');
+      fetchComponents();
+    } catch (err) {
+      console.error('Error saving component:', err);
+    }
   };
 
   const handleEdit = (index) => {
@@ -21,17 +55,26 @@ function Components() {
     setEditName(components[index].name);
   };
 
-  const handleUpdate = (index) => {
-    const updatedList = [...components];
-    updatedList[index].name = editName;
-    setComponents(updatedList);
-    setEditIndex(null);
-    setEditName('');
+  const handleUpdate = async (index) => {
+    const component = components[index];
+    try {
+      await axios.put(`${API_BASE}/components/${component.id}`, { name: editName });
+      setEditIndex(null);
+      setEditName('');
+      fetchComponents();
+    } catch (err) {
+      console.error('Error updating component:', err);
+    }
   };
 
-  const handleDelete = (index) => {
-    const updatedList = components.filter((_, i) => i !== index);
-    setComponents(updatedList);
+  const handleDelete = async (index) => {
+    const id = components[index].id;
+    try {
+      await axios.delete(`${API_BASE}/components/${id}`);
+      fetchComponents();
+    } catch (err) {
+      console.error('Error deleting component:', err);
+    }
   };
 
   return (

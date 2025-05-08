@@ -1,17 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect, useRef} from 'react';
 import { Table } from 'react-bootstrap';
-
+import axios from 'axios';
+import { API_BASE } from '../../../config/api';
 function Sex() {
   const [sexName, setSexName] = useState('');
   const [sexes, setSexes] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
   const [editName, setEditName] = useState('');
 
-  const handleSave = () => {
+  const fetchedOnce = useRef(false);
+  
+  useEffect(() => {
+    if (fetchedOnce.current) return; // Prevent duplicate fetch
+    fetchedOnce.current = true;
+  
+    const fetchInitialSexes = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/sex`);
+        setSexes(res.data);
+      } catch (err) {
+        console.error("Failed to fetch Sexes", err);
+      }
+    };
+  
+    fetchInitialSexes();
+  }, []);
+  
+    const fetchsexes = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/sex`);
+        setSexes(res.data);
+      } catch (err) {
+        console.error("Failed to fetch Sexes", err);
+      }
+    };
+  const handleSave = async () => {
     if (!sexName.trim()) return alert('Please enter a sex option');
-    const newEntry = { name: sexName };
-    setSexes([...sexes, newEntry]);
-    setSexName('');
+    try {
+      await axios.post(`${API_BASE}/sex`, { name: sexName });
+      setSexName('');
+      fetchsexes();
+    } catch (err) {
+      console.error("Failed to save", err);
+    }
   };
 
   const handleEdit = (index) => {
@@ -19,17 +50,26 @@ function Sex() {
     setEditName(sexes[index].name);
   };
 
-  const handleUpdate = (index) => {
-    const updatedList = [...sexes];
-    updatedList[index].name = editName;
-    setSexes(updatedList);
-    setEditIndex(null);
-    setEditName('');
+  const handleUpdate = async(index) => {
+    const sex = sexes[index];
+    try {
+      await axios.put(`${API_BASE}/sex/${sex.id}`, { name: editName });
+      setEditIndex(null);
+      setEditName('');
+      fetchsexes();
+    } catch (err) {
+      console.error("Update failed", err);
+    }
   };
 
-  const handleDelete = (index) => {
-    const updatedList = sexes.filter((_, i) => i !== index);
-    setSexes(updatedList);
+  const handleDelete = async(index) => {
+    const sex = sexes[index];
+    try {
+     await axios.delete(`${API_BASE}/sex/${sex.id}`);
+      fetchsexes();
+    } catch (err) {
+      console.error("Delete failed", err);
+    }
   };
 
   return (

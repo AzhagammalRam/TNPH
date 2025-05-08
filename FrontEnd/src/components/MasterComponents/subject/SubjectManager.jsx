@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Table } from 'react-bootstrap';
+import axios from 'axios';
+import { API_BASE } from '../../../config/api';
 
 function SubjectManager() {
   const [subject, setSubject] = useState('');
@@ -7,11 +9,42 @@ function SubjectManager() {
   const [editIndex, setEditIndex] = useState(null);
   const [editName, setEditName] = useState('');
 
-  const handleSave = () => {
+  const fetchedOnce = useRef(false);
+
+  useEffect(() => {
+    if (fetchedOnce.current) return; // Prevent duplicate fetch
+    fetchedOnce.current = true;
+
+    const fetchInitialSubjects = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/subjects`);
+        setSubjects(res.data);
+      } catch (err) {
+        console.error('Failed to fetch Subjects', err);
+      }
+    };
+
+    fetchInitialSubjects();
+  }, []);
+
+  const fetchSubjects = async () => {
+    try {
+      const res = await axios.get(`${API_BASE}/subjects`);
+      setSubjects(res.data);
+    } catch (err) {
+      console.error('Error fetching subjects:', err);
+    }
+  };
+
+  const handleSave = async () => {
     if (!subject.trim()) return alert('Please enter a subject');
-    const newEntry = { name: subject };
-    setSubjects([...subjects, newEntry]);
-    setSubject('');
+    try {
+      await axios.post(`${API_BASE}/subjects`, { name: subject });
+      setSubject('');
+      fetchSubjects();
+    } catch (err) {
+      console.error('Error saving subject:', err);
+    }
   };
 
   const handleEdit = (index) => {
@@ -19,17 +52,26 @@ function SubjectManager() {
     setEditName(subjects[index].name);
   };
 
-  const handleUpdate = (index) => {
-    const updatedList = [...subjects];
-    updatedList[index].name = editName;
-    setSubjects(updatedList);
-    setEditIndex(null);
-    setEditName('');
+  const handleUpdate = async (index) => {
+    const subject = subjects[index];
+    try {
+      await axios.put(`${API_BASE}/subjects/${subject.id}`, { name: editName });
+      setEditIndex(null);
+      setEditName('');
+      fetchSubjects();
+    } catch (err) {
+      console.error('Error updating subject:', err);
+    }
   };
 
-  const handleDelete = (index) => {
-    const updatedList = subjects.filter((_, i) => i !== index);
-    setSubjects(updatedList);
+  const handleDelete = async (index) => {
+    const subject = subjects[index];
+    try {
+      await axios.delete(`${API_BASE}/subjects/${subject.id}`);
+      fetchSubjects();
+    } catch (err) {
+      console.error('Error deleting subject:', err);
+    }
   };
 
   return (

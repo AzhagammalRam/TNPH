@@ -1,42 +1,83 @@
-import React, { useState } from 'react';
+// src/pages/JobType.jsx
+import React, { useState, useEffect, useRef } from 'react';
 import '../organization/organization.css';
 import { Table } from 'react-bootstrap';
-
-
+import axios from 'axios';
+import { API_BASE } from '../../../config/api'; // Adjust path as needed
 
 function JobType() {
   const [jobtype, setJobtype] = useState('');
   const [jobtypes, setJobtypes] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
   const [editName, setEditName] = useState('');
+  const [editId, setEditId] = useState(null);
 
-  const handleSave = () => {
-    if (!jobtype.trim()) return alert('Please enter an Job Type');
-    const newEntry = { name: jobtype };
-    setJobtypes([...jobtypes, newEntry]);
-    setJobtype('');
+   const fetchedOnce = useRef(false);
+
+    useEffect(() => {
+       if (fetchedOnce.current) return; // Prevent duplicate fetch
+       fetchedOnce.current = true;
+     
+       const fetchInitialJobtypes = async () => {
+         try {
+           const res = await axios.get(`${API_BASE}/job-types`);
+           setJobtypes(res.data);
+         } catch (err) {
+           console.error("Failed to fetch Jobtypes", err);
+         }
+       };
+     
+       fetchInitialJobtypes();
+     }, []);
+
+  const fetchJobTypes = async () => {
+    try {
+      const res = await axios.get(`${API_BASE}/job-types`);
+      setJobtypes(res.data);
+    } catch (err) {
+      console.error('Error fetching job types:', err);
+    }
   };
 
-  const handleEdit = (index) => {
+  const handleSave = async () => {
+    if (!jobtype.trim()) return alert('Please enter a Job Type');
+    try {
+      await axios.post(`${API_BASE}/job-types`, { name: jobtype });
+      fetchJobTypes();
+      setJobtype('');
+    } catch (err) {
+      console.error('Error saving job type:', err);
+    }
+  };
+
+  const handleEdit = (index, job) => {
     setEditIndex(index);
-    setEditName(jobtypes[index].name);
+    setEditName(job.name);
+    setEditId(job.id);
   };
 
-  const handleUpdate = (index) => {
-    const updatedList = [...jobtypes];
-    updatedList[index].name = editName;
-    setJobtypes(updatedList);
-    setEditIndex(null);
-    setEditName('');
+  const handleUpdate = async () => {
+    try {
+      await axios.put(`${API_BASE}/job-types/${editId}`, { name: editName });
+      fetchJobTypes();
+      setEditIndex(null);
+      setEditName('');
+      setEditId(null);
+    } catch (err) {
+      console.error('Error updating job type:', err);
+    }
   };
 
-  const handleDelete = (index) => {
-    const updatedList = jobtypes.filter((_, i) => i !== index);
-    setJobtypes(updatedList);
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`${API_BASE}/job-types/${id}`);
+      fetchJobTypes();
+    } catch (err) {
+      console.error('Error deleting job type:', err);
+    }
   };
 
   return (
-   
     <div className='master-organization'>
       <h4 className='title-clr'>Job Type</h4>
       <div className="master-organization-form p-3 mb-3">
@@ -50,7 +91,6 @@ function JobType() {
               name="jobtype"
               value={jobtype}
               onChange={(e) => setJobtype(e.target.value)}
-              
             />
           </div>
         </div>
@@ -62,17 +102,17 @@ function JobType() {
       </div>
 
       <div className="master-organization-table p-3 mb-3">
-        <Table   bordered id="strength" className='smtbl responsive w-75'>
+        <Table bordered id="strength" className='smtbl responsive w-75'>
           <thead>
             <tr className='text-center'>
               <th>Sl.No</th>
-              <th >Job Type</th>
+              <th>Job Type</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {jobtypes.map((org, index) => (
-              <tr key={index}>
+            {jobtypes.map((job, index) => (
+              <tr key={job.id}>
                 <td>{index + 1}</td>
                 <td>
                   {editIndex === index ? (
@@ -82,31 +122,29 @@ function JobType() {
                       className='w-25'
                     />
                   ) : (
-                    org.name
+                    job.name
                   )}
                 </td>
                 <td className='text-center'>
                   {editIndex === index ? (
-                    <button className='btn btn-success btn-sm me-2' onClick={() => handleUpdate(index)}>Update</button>
+                    <button className='btn btn-success btn-sm me-2' onClick={handleUpdate}>Update</button>
                   ) : (
-                    <button className='btn btn-warning btn-sm me-2' onClick={() => handleEdit(index)}>Edit</button>
+                    <button className='btn btn-warning btn-sm me-2' onClick={() => handleEdit(index, job)}>Edit</button>
                   )}
-                  <button className='btn btn-danger btn-sm' onClick={() => handleDelete(index)}>Delete</button>
+                  <button className='btn btn-danger btn-sm' onClick={() => handleDelete(job.id)}>Delete</button>
                 </td>
               </tr>
             ))}
             {jobtypes.length === 0 && (
               <tr>
-                <td colSpan="3" className="text-center">No jobtypes added yet.</td>
+                <td colSpan="3" className="text-center">No job types added yet.</td>
               </tr>
             )}
           </tbody>
         </Table>
       </div>
     </div>
-   
   );
 }
 
 export default JobType;
-

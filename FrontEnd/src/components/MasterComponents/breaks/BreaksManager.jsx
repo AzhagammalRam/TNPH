@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Table } from 'react-bootstrap';
+import axios from 'axios';
+import { API_BASE } from '../../../config/api';
 
 
 function BreaksManager() {
@@ -8,11 +10,42 @@ function BreaksManager() {
   const [editIndex, setEditIndex] = useState(null);
   const [editName, setEditName] = useState('');
 
-  const handleSave = () => {
+  const fetchedOnce = useRef(false);
+
+  useEffect(() => {
+    if (fetchedOnce.current) return; // Prevent duplicate fetch
+    fetchedOnce.current = true;
+
+    const fetchInitialBreaks = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/breaks`);
+        setBreaksList(res.data);
+      } catch (err) {
+        console.error('Failed to fetch Breaks', err);
+      }
+    };
+
+    fetchInitialBreaks();
+  }, []);
+
+  const fetchBreaks = async () => {
+    try {
+      const res = await axios.get(`${API_BASE}/breaks`);
+      setBreaksList(res.data);
+    } catch (err) {
+      console.error('Error fetching breaks:', err);
+    }
+  };
+
+  const handleSave = async () => {
     if (!breakName.trim()) return alert('Please enter a break name');
-    const newEntry = { name: breakName };
-    setBreaksList([...breaksList, newEntry]);
-    setBreakName('');
+    try {
+      await axios.post(`${API_BASE}/breaks`, { name: breakName });
+      setBreakName('');
+      fetchBreaks();
+    } catch (err) {
+      console.error('Error saving break:', err);
+    }
   };
 
   const handleEdit = (index) => {
@@ -20,17 +53,26 @@ function BreaksManager() {
     setEditName(breaksList[index].name);
   };
 
-  const handleUpdate = (index) => {
-    const updatedList = [...breaksList];
-    updatedList[index].name = editName;
-    setBreaksList(updatedList);
-    setEditIndex(null);
-    setEditName('');
+  const handleUpdate = async (index) => {
+    const breakItem = breaksList[index];
+    try {
+      await axios.put(`${API_BASE}/breaks/${breakItem.id}`, { name: editName });
+      setEditIndex(null);
+      setEditName('');
+      fetchBreaks();
+    } catch (err) {
+      console.error('Error updating break:', err);
+    }
   };
 
-  const handleDelete = (index) => {
-    const updatedList = breaksList.filter((_, i) => i !== index);
-    setBreaksList(updatedList);
+  const handleDelete = async (index) => {
+    const breakItem = breaksList[index];
+    try {
+      await axios.delete(`${API_BASE}/breaks/${breakItem.id}`);
+      fetchBreaks();
+    } catch (err) {
+      console.error('Error deleting break:', err);
+    }
   };
 
   return (
